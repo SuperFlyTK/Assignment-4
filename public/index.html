@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Smart Task Manager — Postman in UI</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="top">
+      <div>
+        <h1>Smart Task Manager</h1>
+        <p class="subtitle">Инструменты API прямо в интерфейсе — создавать, читать, обновлять, удалять</p>
+      </div>
+
+      <div class="auth">
+        <div id="userStatus">Неавторизован</div>
+        <button id="logoutBtn" class="small" style="display:none">Logout</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Left: Task CRUD UI -->
+      <section class="panel">
+        <h2>Tasks (UI)</h2>
+
+        <form id="taskForm" class="card">
+          <input type="hidden" id="taskId" />
+
+          <label>Title</label>
+          <input id="title" placeholder="Task title" required />
+
+          <label>Description</label>
+          <textarea id="description" placeholder="Описание"></textarea>
+
+          <label>Category</label>
+          <input id="category" placeholder="Work / Study / Personal" />
+
+          <div class="row">
+            <div class="small-group">
+              <label>Priority</label>
+              <select id="priority">
+                <option>Low</option>
+                <option selected>Medium</option>
+                <option>High</option>
+              </select>
+            </div>
+
+            <div class="small-group">
+              <label>Status</label>
+              <select id="status">
+                <option selected>Pending</option>
+                <option>Completed</option>
+              </select>
+            </div>
+
+            <div class="small-group">
+              <label>Due Date</label>
+              <input id="dueDate" type="date" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="createBtn" type="submit">Create / Save</button>
+            <button id="clearBtn" type="button" class="muted">Clear</button>
+          </div>
+        </form>
+
+        <h3>Task List</h3>
+        <table>
+          <thead>
+            <tr><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Due</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="taskTable"></tbody>
+        </table>
+      </section>
+
+      <!-- Right: Postman-like panel + Auth -->
+      <section class="panel">
+        <h2>API Console</h2>
+
+        <div class="card">
+          <label>Method</label>
+          <select id="method">
+            <option>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>DELETE</option>
+          </select>
+
+          <label>Endpoint</label>
+          <input id="endpoint" value="/api/tasks" />
+
+          <label>Body (JSON)</label>
+          <textarea id="body" placeholder='{"title":"Test","category":"Work"}'></textarea>
+
+          <div class="actions">
+            <button id="sendBtn">Send</button>
+            <button id="clearResponseBtn" class="muted" type="button">Clear Response</button>
+          </div>
+
+          <label>Response</label>
+          <pre id="response" class="response">{"status":"ready"}</pre>
+        </div>
+
+        <h3>Auth</h3>
+        <div class="card auth-card">
+          <form id="loginForm">
+            <label>Email</label>
+            <input id="email" type="email" placeholder="user@example.com" required />
+            <label>Password</label>
+            <input id="password" type="password" placeholder="password" required />
+            <div class="actions">
+              <button id="loginBtn" type="submit">Login</button>
+              <button id="regBtn" type="button" class="muted">Register (dev)</button>
+            </div>
+          </form>
+          <p class="hint">После логина операции POST/PUT/DELETE, защищённые middleware, будут выполняться в этой сессии.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>Use this panel to run API requests from the browser. All requests are sent with credentials for session cookies.</div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
